@@ -4,7 +4,10 @@ import numpy as np
 import dlib
 import time
 from sklearn.linear_model import LinearRegression
-
+from captura import cap, detector, predictor
+from procesamiento import process_eye
+from calibration import calibrate 
+from prediccion import predict_gaze
 def main_loop():
     while True:
         ret, frame = cap.read()
