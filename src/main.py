@@ -4,6 +4,10 @@ from procesamiento import process_eye
 from calibration import calibrate
 from prediccion import predict_gaze
 
+# Configuración de ventana
+cv2.namedWindow("Frame", cv2.WND_PROP_FULLSCREEN)
+cv2.setWindowProperty("Frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
 def main_loop():
     while True:
         ret, frame = cap.read()
