@@ -1,7 +1,8 @@
 import cv2
 from captura import cap, detector, predictor
 from procesamiento import process_eye
-from calibration import calibrate, predict_gaze
+from calibration import calibrate
+from prediccion import predict_gaze
 
 def main_loop():
     while True:
