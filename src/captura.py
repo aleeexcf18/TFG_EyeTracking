@@ -10,6 +10,7 @@ predictor = dlib.shape_predictor("C:\\Users\\anton\\Downloads\\UNIVERSIDAD\\TFG\
 cv2.namedWindow("Frame", cv2.WND_PROP_FULLSCREEN)
 cv2.setWindowProperty("Frame", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
+# Optimización: evitar la creación de objetos repetidos
 font = cv2.FONT_HERSHEY_SIMPLEX
 font_scale = 1
 text_color = (0, 0, 255)

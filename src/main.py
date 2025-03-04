@@ -1,8 +1,9 @@
+#Modelo predicción
 import cv2
-from captura import cap, detector, predictor
-from procesamiento import process_eye
-from calibration import calibrate
-from prediccion import predict_gaze
+import numpy as np
+import dlib
+import time
+from sklearn.linear_model import LinearRegression
 
 def main_loop():
     while True:
