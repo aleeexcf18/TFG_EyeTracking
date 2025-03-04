@@ -5,14 +5,11 @@ from sklearn.linear_model import LinearRegression
 from captura import cap, detector, predictor
 from procesamiento import process_eye
 
-font = cv2.FONT_HERSHEY_SIMPLEX
-font_scale = 1
-text_color = (0, 0, 255)
-thickness = 2
-
+# Configuraciones de ventana y variables para la calibración
 calibration_points = [(60,60), (320,60), (580,60), (60,240), (320,240), (580,240), (60,420), (320,420), (580,420)]
 calibration_data = []
 
+# Modelos de regresión
 model_left = LinearRegression()
 model_right = LinearRegression()
 
@@ -36,6 +33,7 @@ def calibrate():
     train_models()
 
 def train_models():
+    # Convertir los datos de calibración de manera más eficiente
     X_left = np.array([[lp[0], lp[1]] for lp, _, _ in calibration_data])
     X_right = np.array([[rp[0], rp[1]] for _, rp, _ in calibration_data])
     y = np.array([point for _, _, point in calibration_data])

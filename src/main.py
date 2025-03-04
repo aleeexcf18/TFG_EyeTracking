@@ -25,7 +25,7 @@ def main_loop():
             break
 
 if __name__ == "__main__":
-    calibrate()
+    calibrate()  # Solo se debe hacer al principio
     main_loop()
     cap.release()
     cv2.destroyAllWindows()
