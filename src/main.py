@@ -18,8 +18,8 @@ def main_loop():
         flipped_frame = cv2.flip(frame, 1)
         for face in faces:
             landmarks = predictor(gray, face)
-            left_pupil = process_eye(frame, landmarks, [36, 37, 38, 39, 40, 41])
-            right_pupil = process_eye(frame, landmarks, [42, 43, 44, 45, 46, 47])
+            left_pupil = process_eye(frame, landmarks, [37, 38, 39, 40, 41, 42])
+            right_pupil = process_eye(frame, landmarks, [43, 44, 45, 46, 47, 48])
             if left_pupil and right_pupil:
                 gaze_x, gaze_y = predict_gaze(left_pupil, right_pupil)
                 cv2.circle(flipped_frame, (gaze_x, gaze_y), 5, (0, 0, 255), -1)

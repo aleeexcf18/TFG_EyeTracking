@@ -16,8 +16,8 @@ def detect_pupil(eye_crop):
     return None
 
 def process_eye(frame, landmarks, eye_indices):
-    x1, y1 = landmarks.part(eye_indices[0]).x, landmarks.part(eye_indices[1]).y
-    x2, y2 = landmarks.part(eye_indices[3]).x, landmarks.part(eye_indices[5]).y
+    x1, y1 = landmarks.part(eye_indices[0]).x, landmarks.part(eye_indices[0]).y
+    x2, y2 = landmarks.part(eye_indices[3]).x, landmarks.part(eye_indices[3]).y
     eye_crop = frame[y1:y2, x1:x2]
     
     if eye_crop.size == 0:
