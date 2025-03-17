@@ -10,6 +10,7 @@ cv2.namedWindow("Left Eye", cv2.WINDOW_NORMAL)
 cv2.namedWindow("Right Eye", cv2.WINDOW_NORMAL)
 
 def extract_eye(eye_points, facial_landmarks, frame):
+    # Extrae la imagen del ojo usando los puntos de referencia
 
     left_point = (facial_landmarks.part(eye_points[0]).x, facial_landmarks.part(eye_points[0]).y)
     right_point = (facial_landmarks.part(eye_points[3]).x, facial_landmarks.part(eye_points[3]).y)
@@ -43,8 +44,8 @@ while True:
         landmarks = predictor(gray, face)
 
         # Obtener la imagen recortada del ojo
-        left_eye_crop = extract_eye([37, 38, 39, 40, 41, 42], landmarks, frame)
-        right_eye_crop = extract_eye([43, 44, 45, 46, 47, 48], landmarks, frame)
+        left_eye_crop = extract_eye([36, 37, 38, 39, 40, 41], landmarks, frame)
+        right_eye_crop = extract_eye([42, 43, 44, 45, 46, 47], landmarks, frame)
 
         # Mostrar cada ojo en su ventana si fue detectado correctamente
         if left_eye_crop is not None:
