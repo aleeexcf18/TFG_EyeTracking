@@ -23,14 +23,14 @@ root.geometry("1080x720")
 btn1 = tk.Button(root, text="Seguimiento pupila", command=ejecutar_script_1)
 btn1.pack(pady=10)
 
-btn2 = tk.Button(root, text="Calibracion", command=ejecutar_script_2)
+btn2 = tk.Button(root, text="Calibración", command=ejecutar_script_2)
 btn2.pack(pady=10)
 
 btn3 = tk.Button(root, text="Detección del rostro", command=ejecutar_script_3)
-btn1.pack(pady=10)
+btn3.pack(pady=10)
 
 btn4 = tk.Button(root, text="Puntos faciales", command=ejecutar_script_4)
-btn2.pack(pady=10)
+btn4.pack(pady=10)
 
 # Iniciar interfaz
 root.mainloop()
