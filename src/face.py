@@ -54,7 +54,7 @@ while True:
             cv2.imshow("Right Eye", right_eye_crop)
             
     cv2.imshow("Frame",frame)
-    if cv2.waitKey(1) & 0xFF == 13:
+    if cv2.waitKey(1) == 27 & 0xFF3:
         break
 cap.release()
 cv2.destroyAllWindows()
