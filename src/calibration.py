@@ -42,6 +42,7 @@ def calibrate():
                 right_pupil = process_eye(frame, landmarks, [43, 44, 45, 46, 47, 48])
                 if left_pupil and right_pupil:
                     calibration_data.append((left_pupil, right_pupil, point))
+                    print(f"Pupilas registradas en: {left_pupil}, {right_pupil} para el punto {point}")
                     break
 
     # Mostrar mensaje de calibración finalizada

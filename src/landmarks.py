@@ -1,7 +1,7 @@
 import cv2
 import dlib
 import imutils
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 # Detector facial
 face_detector = dlib.get_frontal_face_detector()
 # Predictor de 68 puntos de referencia
