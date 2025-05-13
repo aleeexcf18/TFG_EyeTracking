@@ -4,7 +4,7 @@ import numpy as np
 import dlib
 import time
 from sklearn.linear_model import LinearRegression
-from captura import cap, detector, predictor
+from capture import cap, detector, predictor
 from procesamiento import process_eye
 from calibration import calibrate
 from train import train_models

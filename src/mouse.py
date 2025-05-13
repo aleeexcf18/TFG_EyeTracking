@@ -2,10 +2,7 @@ import cv2
 import dlib
 import numpy as np
 import pyautogui
-
-# Cargar detector de rostros y predictor de puntos faciales
-detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("C:\\Users\\anton\\Downloads\\UNIVERSIDAD\\TFG\\shape_predictor_68_face_landmarks.dat")
+from capture import *
 
 # Obtener dimensiones de pantalla
 screen_width, screen_height = pyautogui.size()

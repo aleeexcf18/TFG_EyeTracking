@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import dlib
+from capture import *
 
 class KalmanFilter:
     def __init__(self):
@@ -90,10 +91,6 @@ def process_eye(frame, landmarks, eye_indices, kalman):
     # Filtrar con Kalman solo si la pupila es detectada
     return kalman.predict(pupil_x, pupil_y)
 
-cap = cv2.VideoCapture(1)
-detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("C:\\Users\\anton\\Downloads\\UNIVERSIDAD\\TFG\\shape_predictor_68_face_landmarks.dat")
-
 kalman_left = KalmanFilter()
 kalman_right = KalmanFilter()
 
@@ -102,24 +99,25 @@ while True:
     if not ret:
         break
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    flipped_frame = cv2.flip(frame, 1)
+    gray = cv2.cvtColor(flipped_frame, cv2.COLOR_BGR2GRAY)
     faces = detector(gray)
     
     for face in faces:
         landmarks = predictor(gray, face)
         
         # Ojo izquierdo: puntos 36 a 41
-        left_pupil = process_eye(frame, landmarks, [37, 38, 39, 40, 41, 42], kalman_left)
+        left_pupil = process_eye(flipped_frame, landmarks, [37, 38, 39, 40, 41, 42], kalman_left)
         
         # Ojo derecho: puntos 42 a 47
-        right_pupil = process_eye(frame, landmarks, [43, 44, 45, 46, 47, 48], kalman_right)
+        right_pupil = process_eye(flipped_frame, landmarks, [43, 44, 45, 46, 47, 48], kalman_right)
 
         if left_pupil:
-            cv2.circle(frame, left_pupil, 3, (0, 255, 0), -1)
+            cv2.circle(flipped_frame, left_pupil, 3, (0, 255, 0), -1)
         if right_pupil:
-            cv2.circle(frame, right_pupil, 3, (0, 255, 0), -1)
+            cv2.circle(flipped_frame, right_pupil, 3, (0, 255, 0), -1)
     
-    cv2.imshow("Frame", frame)
+    cv2.imshow("Frame", flipped_frame)
     if cv2.waitKey(1) & 0xFF == 13:
         break
 

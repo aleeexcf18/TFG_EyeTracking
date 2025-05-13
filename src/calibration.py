@@ -1,7 +1,7 @@
 import time
 import cv2
 import numpy as np
-from captura import *
+from capture import *
 from procesamiento import process_eye
 
 # Configuraciones de ventana y variables para la calibración
