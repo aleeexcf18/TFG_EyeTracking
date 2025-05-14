@@ -17,10 +17,10 @@ def extract_eye(eye_points, facial_landmarks, frame):
     rect_top = min(left_point[1], facial_landmarks.part(eye_points[2]).y)
     rect_bottom = max(right_point[1], facial_landmarks.part(eye_points[4]).y)
     
-    # Dibujar rectángulo en cada ojo
+    # Dibuja rectángulo en cada ojo
     cv2.rectangle(frame,(rect_left,rect_top),(rect_right,rect_bottom),(0,255,0),2)
 
-    # Extraer la región del ojo
+    # Extrae la región del ojo
     if rect_top >= 0 and rect_bottom <= frame.shape[0] and rect_left >= 0 and rect_right <= frame.shape[1]:
         eye_crop = frame[rect_top:rect_bottom, rect_left:rect_right]
         return eye_crop
