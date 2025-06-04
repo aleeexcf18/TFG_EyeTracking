@@ -223,7 +223,7 @@ class PupilDetector:
                     if right_pupil_x is not None and right_pupil_y is not None:
                         # Dibujar círculo en la pupila derecha
                         cv2.circle(frame, (right_pupil_x, right_pupil_y), 5, (0, 0, 255), -1)
-                
+                '''
                 # Calcular FPS
                 current_time = time.time()
                 fps = 1.0 / (current_time - prev_time)
@@ -235,7 +235,7 @@ class PupilDetector:
                 latency = (time.time() - start_time) * 1000  # en milisegundos
                 cv2.putText(frame, f'Latency: {latency:.1f} ms', (20, 80),
                             cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 0), 2, cv2.LINE_AA)
-
+                '''
                 # Mostrar el frame con las pupilas detectadas
                 cv2.namedWindow('Deteccion de Pupilas', cv2.WINDOW_NORMAL)
                 cv2.setWindowProperty('Deteccion de Pupilas', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)

@@ -27,7 +27,6 @@ def app():
     titulo.pack(pady=20)
 
     # Funciones para ejecutar scripts
-
     def ejecutar_script_1():
         subprocess.run([sys.executable, "landmarks.py"])
 
@@ -43,7 +42,7 @@ def app():
     def ejecutar_script_5():
         subprocess.run([sys.executable, "mouse_controller.py"])
 
-    # Botones modernos
+    #Botones
     btn1 = ctk.CTkButton(root, text="Puntos Faciales", font=ctk.CTkFont(size=16), command=ejecutar_script_1, width=220, height=50)
     btn1.pack(pady=10)
 
