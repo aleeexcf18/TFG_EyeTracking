@@ -350,12 +350,12 @@ if __name__ == "__main__":
                     if left_pupil_x is not None and left_pupil_y is not None:
                         left_pupil = (left_pupil_x, left_pupil_y)
                         # Dibujar círculo en la pupila izquierda
-                        cv2.circle(frame, (left_pupil_x, left_pupil_y), 5, (0, 0, 255), -1)
+                        cv2.circle(frame, (left_pupil_x, left_pupil_y), 7, (0, 0, 255), -1)
                     
                     if right_pupil_x is not None and right_pupil_y is not None:
                         right_pupil = (right_pupil_x, right_pupil_y)
                         # Dibujar círculo en la pupila derecha
-                        cv2.circle(frame, (right_pupil_x, right_pupil_y), 5, (0, 0, 255), -1)
+                        cv2.circle(frame, (right_pupil_x, right_pupil_y), 7, (0, 0, 255), -1)
                     
                 # Añadir muestra de calibración
                 calibrador.add_sample(left_pupil, right_pupil)
