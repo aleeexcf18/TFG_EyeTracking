@@ -1,19 +1,17 @@
-import cv2  # OpenCV para procesamiento de imágenes y visualización
-import numpy as np  # Para operaciones numéricas
-import time  # Para medir tiempos y duraciones
-import csv  # Para guardar los datos de calibración
-import os  # Para manejo de archivos y directorios
-from datetime import datetime  # Para generar nombres de archivo con timestamp
-from pupil_detector import PupilDetector  # Importar el detector de pupilas
-import pyautogui  # Para obtener el tamaño de la pantalla
-from video_capture import VideoCapture  # Nuestra clase personalizada para la cámara
-import sys  # Para obtener el tamaño de la pantalla
+import cv2  
+import numpy as np  
+import time 
+import csv  
+import os  
+from datetime import datetime  
+from pupil_detector import PupilDetector  
+import pyautogui  
+from video_capture import VideoCapture 
+import sys  
 
 class Calibrator:
     def __init__(self, screen_width, screen_height):
-        """
-        Inicializa el calibrador.
-        """
+        """Inicializa el calibrador. """
         # Guarda el ancho de la pantalla
         self.screen_width = screen_width  
         # Guarda el alto de la pantalla
@@ -48,9 +46,7 @@ class Calibrator:
         self.point_started = False  
 
     def show_instruction_message(self, cap, duration=3):
-        """
-        Muestra un mensaje de instrucción inicial.
-        """
+        """ Muestra un mensaje de instrucción inicial."""
         start_time = time.time()
         message = "Mire sin mover la cabeza a los puntos de la pantalla"
         
@@ -101,9 +97,7 @@ class Calibrator:
             self.calibrating = False
 
     def add_sample(self, left_pupil, right_pupil):
-        """
-        Añade una muestra de calibración.
-        """
+        """Añade una muestra de calibración."""
         if not self.calibrating:
             return False
         current_time = time.time()
@@ -149,7 +143,7 @@ class Calibrator:
                 'right_pupil_x': right_pupil[0],
                 'right_pupil_y': right_pupil[1]
             }
-            self.calibration_data.append(sample)  # Añade la muestra a la lista
+            self.calibration_data.append(sample)
         return True
 
     def save_calibration_data(self):
@@ -159,7 +153,7 @@ class Calibrator:
 
         os.makedirs('../calibration', exist_ok=True)  # Crea el directorio si no existe
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')  # Fecha y hora actual
-        filename = f'../calibration/calibration_{timestamp}.csv'  # Nombre del archivo
+        filename = f'../calibration/calibration_{timestamp}.csv'
 
         # Escribe los datos en el archivo CSV
         with open(filename, 'w', newline='') as csvfile:
@@ -172,15 +166,12 @@ class Calibrator:
                 writer.writerow(sample)
         print(f"Datos de calibración guardados en {filename}")
         
-        # Mostrar mensaje de calibración completada
+        # Muestra mensaje de calibración completada
         self._show_completion_message(cap)
         
     def _show_completion_message(self, cap):
-        """Muestra un mensaje de calibración completada durante 4 segundos.
-        
-        Args:
-            cap: Instancia de VideoCapture para obtener los frames de la cámara.
-        """
+        """Muestra un mensaje de calibración completada durante 4 segundos."""
+
         start_time = time.time()
         message = "Calibracion completada"
         
@@ -258,7 +249,6 @@ class Calibrator:
         text_y = text_size[1] + 10
         
         # Fondo semitransparente para el texto
-       # overlay = frame_copy.copy()
         cv2.rectangle(frame_copy, (0, 0), (text_size[0] + 20, text_size[1] + 20), (0, 0, 0), -1)
         cv2.addWeighted(frame_copy, 0.7, frame_copy, 0.3, 0, frame_copy)
         
@@ -270,13 +260,13 @@ class Calibrator:
             elapsed = time.time() - self.last_update_time
             countdown = max(0, int(self.point_duration - elapsed))
             
-            # Tamaño del texto de la cuenta regresiva (reducido para que quepa en el punto)
+            # Tamaño del texto de la cuenta regresiva
             countdown_text = str(countdown + 1)
             
-            # Calcular el tamaño de fuente basado en el radio del punto (aumentado)
-            base_font_scale = point_radius / 20.0  # Reducido el divisor para aumentar el tamaño
-            countdown_scale = max(0.8, min(base_font_scale, 3.0))  # Aumentado el tamaño máximo
-            countdown_thickness = max(2, int(countdown_scale * 1.8))  # Aumentado el grosor
+            # Calcular el tamaño de fuente basado en el radio del punto
+            base_font_scale = point_radius / 20.0  
+            countdown_scale = max(0.8, min(base_font_scale, 3.0)) 
+            countdown_thickness = max(2, int(countdown_scale * 1.8))
             
             # Calcular tamaño del texto para centrarlo
             (text_w, text_h), baseline = cv2.getTextSize(
@@ -297,9 +287,9 @@ class Calibrator:
                 (text_x, text_y), 
                 cv2.FONT_HERSHEY_SIMPLEX, 
                 countdown_scale, 
-                (255, 255, 255),  # Color blanco
+                (255, 255, 255),
                 countdown_thickness,
-                cv2.LINE_AA  # Mejor calidad de texto
+                cv2.LINE_AA
             )
            
         return frame_copy

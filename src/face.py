@@ -12,7 +12,7 @@ def face():
     
     # Iniciar la cámara usando nuestra clase VideoCapture
     try:
-        cap = VideoCapture(camera_index=0, width=1280, height=720)
+        cap = VideoCapture()
         print("Cámara iniciada correctamente")
     except RuntimeError as e:
         print(f"Error al iniciar la cámara: {e}")
@@ -37,13 +37,13 @@ def face():
             # Obtener las coordenadas del rectángulo de la cara
             x, y, w, h = face.left(), face.top(), face.width(), face.height()
             
-            # Dibujar rectángulo alrededor de la cara (azul)
+            # Dibujar rectángulo alrededor de la cara
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
             
             # Obtener los landmarks faciales
             landmarks = predictor(gray, face)
             
-            # Coordenadas de los ojos (índices según el modelo de 68 puntos)
+            # Coordenadas de los ojos
             # Ojo izquierdo: puntos 36 a 41
             left_eye_points = [(landmarks.part(i).x, landmarks.part(i).y) for i in range(36, 42)]
             # Ojo derecho: puntos 42 a 47
@@ -57,9 +57,9 @@ def face():
                 y_max = max(p[1] for p in eye_points)
                 cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), color, 2)
             
-            # Dibujar rectángulos alrededor de los ojos (verde para ojo izquierdo, rojo para derecho)
-            draw_eye_rect(left_eye_points, frame, (0, 255, 0))  # Verde
-            draw_eye_rect(right_eye_points, frame, (0, 255, 0))  # Rojo
+            # Dibujar rectángulos alrededor de los ojos 
+            draw_eye_rect(left_eye_points, frame, (0, 255, 0))
+            draw_eye_rect(right_eye_points, frame, (0, 255, 0))
         
         # Mostrar el frame en pantalla completa
         cv2.namedWindow('Deteccion del Rostro', cv2.WND_PROP_FULLSCREEN)
@@ -70,7 +70,7 @@ def face():
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     
-    # Liberar los recursos (se liberan automáticamente al salir del with)
+    # Liberar los recursos
     cap.release()
     cv2.destroyAllWindows()
 

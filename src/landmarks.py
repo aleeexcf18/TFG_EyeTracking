@@ -6,7 +6,7 @@ def landmarks():
     # Inicializar el detector de caras de dlib
     detector = dlib.get_frontal_face_detector()
     
-    # Cargar el predictor de landmarks faciales (asegúrate de tener el archivo .dat)
+    # Cargar el predictor de landmarks faciales
     predictor = dlib.shape_predictor("../utils/shape_predictor_68_face_landmarks.dat")
     
     # Iniciar la captura de video
@@ -36,7 +36,7 @@ def landmarks():
             # Obtener los landmarks faciales
             landmarks = predictor(gray, face)
             
-            # Dibujar los 68 puntos de referencia
+            # Dibujar los puntos de referencia
             for n in range(0, 68):
                 x = landmarks.part(n).x
                 y = landmarks.part(n).y

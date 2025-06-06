@@ -4,7 +4,7 @@ import sys
 from PIL import Image
 
 def app():
-    # Configurar apariencia
+    # Apariencia
     ctk.set_appearance_mode("Light")
     ctk.set_default_color_theme("blue")
 
@@ -42,7 +42,7 @@ def app():
     def ejecutar_script_5():
         subprocess.run([sys.executable, "mouse_controller.py"])
 
-    #Botones
+    # Botones
     btn1 = ctk.CTkButton(root, text="Puntos Faciales", font=ctk.CTkFont(size=16), command=ejecutar_script_1, width=220, height=50)
     btn1.pack(pady=10)
 

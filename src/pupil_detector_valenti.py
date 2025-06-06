@@ -1,50 +1,27 @@
 import cv2
 import numpy as np 
-import dlib  # Importa dlib para detección de caras y landmarks faciales
+import dlib
 
 class PupilDetector:
     def __init__(self, predictor_path="../utils/shape_predictor_68_face_landmarks.dat"):
-        """
-        Inicializa el detector de pupilas con el predictor de puntos faciales.
-        
-        Args:
-            predictor_path (str): Ruta al archivo del predictor de puntos faciales de dlib.
-        """
+        """ Inicializa el detector de pupilas con el predictor de puntos faciales. """
         self.detector = dlib.get_frontal_face_detector()  # Crea el detector de caras frontal de dlib
         self.predictor = dlib.shape_predictor(predictor_path)  # Carga el modelo de landmarks faciales
         
-        # Índices de los puntos de referencia para los ojos (según convención dlib 68 puntos)
+        # Índices de los puntos de referencia para los ojos
         self.LEFT_EYE_POINTS = [36, 37, 38, 39, 40, 41]
         self.RIGHT_EYE_POINTS = [42, 43, 44, 45, 46, 47]
     
     def detect_face(self, frame):
-        """
-        Detecta caras en el frame.
-        
-        Args:
-            frame: Imagen en la que detectar caras.
-            
-        Returns:
-            list: Lista de caras detectadas.
-        """
+        """ Detecta caras en el frame."""
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Convierte el frame a escala de grises
-        return self.detector(gray, 0)  # Devuelve la lista de caras detectadas
+        return self.detector(gray, 0)  
     
     def get_eye_region(self, frame, landmarks, eye_points):
-        """
-        Obtiene la región del ojo a partir de los landmarks faciales.
-        
-        Args:
-            frame: Imagen de entrada.
-            landmarks: Puntos de referencia faciales.
-            eye_points: Índices de los puntos del ojo.
-            
-        Returns:
-            numpy.ndarray: Región del ojo.
-        """
+        """ Obtiene la región del ojo a partir de los landmarks faciales."""
         eye_region = np.array([(landmarks.part(point).x, landmarks.part(point).y) 
-                             for point in eye_points], np.int32)  # Extrae las coordenadas de los puntos del ojo
-        return eye_region  # Devuelve el polígono que delimita la región del ojo
+                             for point in eye_points], np.int32) 
+        return eye_region 
     
     def refinar_centro_pupila(self, gray_eye, centro_inicial, tam_region=20):
 
@@ -80,28 +57,18 @@ class PupilDetector:
         return centro_inicial, None
     
     def detect_pupil(self, eye_region, frame, eye_side):
-        """
-        Detecta la pupila en la región del ojo.
-        
-        Args:
-            eye_region: Región del ojo.
-            frame: Imagen completa.
-            eye_side (str): 'left' o 'right' para identificar el ojo.
-            
-        Returns:
-            tuple: (centro_x, centro_y) de la pupila, o (None, None) si no se detecta.
-        """
+        """Detecta la pupila en la región del ojo."""
         # Obtener el rectángulo delimitador del ojo
-        x, y, w, h = cv2.boundingRect(eye_region)  # Calcula el bounding box de la región del ojo
+        x, y, w, h = cv2.boundingRect(eye_region)
         
         # Extraer la región del ojo
-        eye = frame[y:y+h, x:x+w]  # Recorta la región del ojo del frame
+        eye = frame[y:y+h, x:x+w]
         
         if eye.size == 0:
-            return None, None  # Si la región está vacía, retorna None
+            return None, None
             
         # Convertir a escala de grises
-        gray_eye = cv2.cvtColor(eye, cv2.COLOR_BGR2GRAY)  # Convierte el ojo a escala de grises
+        gray_eye = cv2.cvtColor(eye, cv2.COLOR_BGR2GRAY)
         
         # Derivadas de primer orden
         Lx = cv2.Sobel(gray_eye, cv2.CV_64F, 1, 0, ksize=3)
@@ -110,12 +77,12 @@ class PupilDetector:
         # Derivadas de segundo orden
         Lxx = cv2.Sobel(Lx, cv2.CV_64F, 1, 0, ksize=3)
         Lyy = cv2.Sobel(Ly, cv2.CV_64F, 0, 1, ksize=3)
-        Lxy = cv2.Sobel(Lx, cv2.CV_64F, 0, 1, ksize=3)  # igual a Ly respecto a x
+        Lxy = cv2.Sobel(Lx, cv2.CV_64F, 0, 1, ksize=3)
 
         # Escalar común: (Lx^2 + Ly^2)
         mag2 = Lx**2 + Ly**2
 
-        # Paso 4: Aproximar curvatura de isofotas (simplificación)
+        # Aproximar curvatura de isofotas
         denom = (Ly**2) * Lxx - 2 * Lx * Ly * Lxy + (Lx**2) * Lyy + 1e-8
 
         Dx = -(Lx * mag2) / (denom)
@@ -123,19 +90,14 @@ class PupilDetector:
 
         magnitud = Dx**2 + Dy**2
 
-        # Paso 5: Encontrar el mínimo de curvatura (posible centro pupila)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(magnitud)
+        # Encontrar el mínimo de curvatura
+        _, _, min_loc, _ = cv2.minMaxLoc(magnitud)
 
-        '''
+        
         centro_inicial = min_loc
 
-        # Paso 6: Refinar centro con contornos y elipse
+        # Refinar centro con contornos y elipse
         centro_refinado, elipse = self.refinar_centro_pupila(gray_eye, centro_inicial)
 
         return centro_refinado, centro_inicial, elipse
-        '''
-        center_x = min_loc[0] + x
-        center_y = min_loc[1] + y
-            
-        return center_x, center_y 
     
