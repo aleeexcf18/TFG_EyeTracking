@@ -20,9 +20,9 @@ class Calibrator:
         self.screen_height = screen_height  
         # Puntos de calibración
         self.calibration_points = [
-            (220, 140), (960, 140), (1760, 140),
-            (220, 540), (960, 540), (1760, 540),
-            (220, 980), (960, 980), (1760, 980)
+            (180, 100), (960, 100), (1760, 100),
+            (180, 540), (960, 540), (1760, 540),
+            (180, 980), (960, 980), (1760, 980)
         ]
         # Duración del punto
         self.point_duration = 4 
@@ -86,18 +86,6 @@ class Calibrator:
                 return False
         return True
 
-    '''
-    def get_current_frame(self):
-        """
-        Obtiene el frame actual de la cámara.
-        
-        Returns:
-            numpy.ndarray: El frame actual o None si hay un error.
-        """
-        # Esta función debe ser implementada o modificada según cómo se obtengan los frames
-        # en tu aplicación. Por ahora, devuelve None como marcador de posición.
-        return None
-    '''
     def start_calibration(self, cap):
         """Inicia el proceso de calibración."""
         self.calibration_data = []
@@ -276,7 +264,7 @@ class Calibrator:
         
         cv2.putText(frame_copy, progress, (text_x, text_y), 
                    cv2.FONT_HERSHEY_SIMPLEX, font_scale, (255, 255, 255), font_thickness)
-        '''
+        
         # Mostrar cuenta regresiva si el punto ha comenzado
         if self.point_started:
             elapsed = time.time() - self.last_update_time
@@ -313,7 +301,7 @@ class Calibrator:
                 countdown_thickness,
                 cv2.LINE_AA  # Mejor calidad de texto
             )
-        '''    
+           
         return frame_copy
         
 if __name__ == "__main__":
@@ -368,7 +356,7 @@ if __name__ == "__main__":
                     # Detectar pupilas
                     left_pupil_x, left_pupil_y = pupil_detector.detect_pupil(left_eye_region, frame, 'left', landmarks)
                     right_pupil_x, right_pupil_y = pupil_detector.detect_pupil(right_eye_region, frame, 'right', landmarks)
-                    '''
+                    
                     if left_pupil_x is not None and left_pupil_y is not None:
                         left_pupil = (left_pupil_x, left_pupil_y)
                         # Dibujar círculo en la pupila izquierda
@@ -378,7 +366,7 @@ if __name__ == "__main__":
                         right_pupil = (right_pupil_x, right_pupil_y)
                         # Dibujar círculo en la pupila derecha
                         cv2.circle(frame, (right_pupil_x, right_pupil_y), 5, (0, 0, 255), -1)
-                    '''
+                    
                 # Añadir muestra de calibración
                 calibrador.add_sample(left_pupil, right_pupil)
                 
