@@ -197,8 +197,8 @@ class PupilDetector:
                 cv2.setWindowProperty('Deteccion de Pupilas', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
                 cv2.imshow('Deteccion de Pupilas', frame)
                 
-                # Salir con 'q'
-                if cv2.waitKey(1) & 0xFF == ord('q'):
+                # Salir con 'esc'
+                if cv2.waitKey(1) == 27:
                     break
                     
         except KeyboardInterrupt:

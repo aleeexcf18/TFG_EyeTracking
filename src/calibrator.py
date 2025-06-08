@@ -366,8 +366,8 @@ if __name__ == "__main__":
                 # Mostrar el frame
                 cv2.imshow('Calibracion', frame)
                 
-                # Salir con 'q'
-                if cv2.waitKey(1) & 0xFF == ord('q'):
+                # Salir con 'esc'
+                if cv2.waitKey(1) == 27:
                     break
 
         except KeyboardInterrupt:
