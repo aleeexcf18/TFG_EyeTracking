@@ -3,10 +3,10 @@ import numpy as np
 import dlib
 
 class PupilDetector:
-    def __init__(self, predictor_path="../utils/shape_predictor_68_face_landmarks.dat"):
+    def __init__(self):
         """ Inicializa el detector de pupilas con el predictor de puntos faciales. """
         self.detector = dlib.get_frontal_face_detector()  # Crea el detector de caras frontal de dlib
-        self.predictor = dlib.shape_predictor(predictor_path)  # Carga el modelo de landmarks faciales
+        self.predictor = dlib.shape_predictor("../utils/shape_predictor_68_face_landmarks.dat")  # Carga el modelo de landmarks faciales
         
         # Índices de los puntos de referencia para los ojos
         self.LEFT_EYE_POINTS = [36, 37, 38, 39, 40, 41]

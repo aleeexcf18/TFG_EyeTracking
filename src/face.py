@@ -18,7 +18,7 @@ def face():
         print(f"Error al iniciar la cámara: {e}")
         return
     
-    print("Presiona 'q' para salir")
+    print("Presiona 'esc' para salir")
     
     while True:
         # Leer un frame de la cámara
