@@ -35,11 +35,11 @@ class PupilDetector:
             # Obtener las coordenadas de los puntos del ojo
             points = [(landmarks.part(p).x, landmarks.part(p).y) for p in eye_points]
             
-            # Calcular las distancias verticales (p2-p6 y p3-p5)
+            # Calcular las distancias verticales
             vert1 = distance.euclidean(points[1], points[5])
             vert2 = distance.euclidean(points[2], points[4])
             
-            # Calcular la distancia horizontal (p1-p4)
+            # Calcular la distancia horizontal
             horiz = distance.euclidean(points[0], points[3])
             
             # Evitar división por cero
