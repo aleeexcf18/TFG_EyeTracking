@@ -123,8 +123,8 @@ class Calibrator:
 
                 # Si ya terminó todos los puntos, guarda los datos
                 if self.current_point_index >= len(self.calibration_points):
-                    self.calibrating = False  # Termina la calibración
-                    self.save_calibration_data()  # Guarda los datos
+                    self.calibrating = False
+                    self.save_calibration_data()
                     return False
             return True
         return False
@@ -221,14 +221,14 @@ class Calibrator:
         # Obtener dimensiones del frame actual
         frame_height, frame_width = frame.shape[:2]
         
-        # Obtener el punto de calibración actual (en coordenadas de pantalla)
+        # Obtener el punto de calibración actual
         x, y = self.calibration_points[self.current_point_index]
         
         # Escalar las coordenadas al tamaño del frame actual
         x_scaled = int(x * frame_width / self.screen_width)
         y_scaled = int(y * frame_height / self.screen_height)
         
-        # Tamaño del punto proporcional al tamaño del frame (aumentado un poco)
+        # Tamaño del punto proporcional al tamaño del frame
         point_radius = max(20, int(min(frame_width, frame_height) * 0.01))
         
         # Copiar el frame para dibujar
@@ -374,9 +374,7 @@ if __name__ == "__main__":
             print("Calibración interrumpida manualmente.")
 
         finally:
-            # Solo guardar si no se completó la calibración normalmente
             if calibrador.calibrating:
                 calibrador.save_calibration_data()
-            # Liberar recursos
             cap.release()
             cv2.destroyAllWindows()
