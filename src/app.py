@@ -55,7 +55,7 @@ def app():
     btn4 = ctk.CTkButton(root, text="Calibracion", font=ctk.CTkFont(size=16), command=ejecutar_script_4, width=220, height=50)
     btn4.pack(pady=10)
 
-    btn5 = ctk.CTkButton(root, text="Control del raton", font=ctk.CTkFont(size=16), command=ejecutar_script_5, width=220, height=50)
+    btn5 = ctk.CTkButton(root, text="Control del Raton", font=ctk.CTkFont(size=16), command=ejecutar_script_5, width=220, height=50)
     btn5.pack(pady=10)
 
     return root
