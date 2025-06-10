@@ -303,7 +303,7 @@ if __name__ == "__main__":
         print(f"Error al iniciar la cámara: {e}")
     else:
         # Inicializar el detector de pupilas
-        pupil_detector = PupilDetector("../utils/shape_predictor_68_face_landmarks.dat")
+        pupil_detector = PupilDetector()
         
         # Obtener el tamaño de la pantalla
         screen_w, screen_h = pyautogui.size()
@@ -362,7 +362,7 @@ if __name__ == "__main__":
                 
                 # Dibujar el punto de calibración
                 frame = calibrador.draw_calibration_point(frame)
-                
+
                 # Mostrar el frame
                 cv2.imshow('Calibracion', frame)
                 

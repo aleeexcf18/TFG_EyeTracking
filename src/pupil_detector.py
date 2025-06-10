@@ -86,7 +86,7 @@ class PupilDetector:
             
             # Aplicar umbral adaptativo
             thresh = cv2.adaptiveThreshold(gray_eye, 255, cv2.ADAPTIVE_THRESH_MEAN_C, 
-                                         cv2.THRESH_BINARY_INV, 11, 2)  # Resalta la pupila (oscura)
+                                         cv2.THRESH_BINARY_INV, 11, 2)  # Resalta la pupila
             
             # Operación de apertura para eliminar ruido
             kernel = np.ones((3, 3), np.uint8)  # Crea una matriz de la imagen para operaciones morfológicas
